@@ -15,11 +15,10 @@ const app = express();
 
 
 const corsOptions = {
-  origin: "http://localhost:3000",
+  origin: "https://talkativeapp.netlify.app",
   optionsSuccessStatus: 200, // For legacy browser support
-  credentials: true,
+  credentials: false,
   allowedHeaders: [
-    "set-cookie",
     "Content-Type",
     "Access-Control-Allow-Origin",
     "Access-Control-Allow-Credentials",
@@ -27,6 +26,7 @@ const corsOptions = {
   ],
 };
 app.use(cors(corsOptions));
+app.use(express.json()); //allowing json data to be received from client
 app.use(express.urlencoded({ extended: true }));
 
 app.get("/", (req, res) => {
@@ -69,7 +69,7 @@ const server = app.listen(
 const io = require("socket.io")(server, {
   pingTimeout: 60000,
   cors: {
-    origin: "http://localhost:3000",
+    origin: "https://talkativeapp.netlify.app",
     // credentials: true,
   },
 });
