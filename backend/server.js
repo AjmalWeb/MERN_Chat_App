@@ -12,6 +12,19 @@ dotenv.config();
 connectDB();
 const app = express();
 
+app.use(function (req, res, next) {
+  // 👇️ specify CORS headers to send 👇️
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header(
+    'Access-Control-Allow-Methods',
+    'POST, PUT, PATCH, GET, DELETE, OPTIONS',
+  );
+  res.header(
+    'Access-Control-Allow-Headers',
+    'Origin, X-Api-Key, X-Requested-With, Content-Type, Accept, Authorization',
+  );
+  next();
+});
 
 app.use("/api/user", userRoutes);
 app.use("/api/chat", chatRoutes);
@@ -30,19 +43,7 @@ app.use(notFound);
 app.use(errorHandler);
 
 
-app.use(function (req, res, next) {
-  // 👇️ specify CORS headers to send 👇️
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header(
-    'Access-Control-Allow-Methods',
-    'POST, PUT, PATCH, GET, DELETE, OPTIONS',
-  );
-  res.header(
-    'Access-Control-Allow-Headers',
-    'Origin, X-Api-Key, X-Requested-With, Content-Type, Accept, Authorization',
-  );
-  next();
-});
+
 
 // --------------------------deployment------------------------------
 
