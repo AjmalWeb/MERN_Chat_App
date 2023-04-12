@@ -15,7 +15,7 @@ const app = express();
 
 
 const corsOptions = {
-  origin: "https://talkativeapp.netlify.app",
+  origin: "http://localhost:3000",
   optionsSuccessStatus: 200, // For legacy browser support
   credentials: true,
   allowedHeaders: [
@@ -69,7 +69,7 @@ const server = app.listen(
 const io = require("socket.io")(server, {
   pingTimeout: 60000,
   cors: {
-    origin: "https://talkativeapp.netlify.app",
+    origin: "http://localhost:3000",
     // credentials: true,
   },
 });
