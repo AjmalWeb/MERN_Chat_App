@@ -12,21 +12,21 @@ dotenv.config();
 connectDB();
 const app = express();
 
-const corsOptions = {
-  origin: "*",
-  optionsSuccessStatus: 200, // For legacy browser support
-  credentials: true,
-  allowedHeaders: [
-    "set-cookie",
-    "Content-Type",
-    "Access-Control-Allow-Origin",
-    "Access-Control-Allow-Credentials",
-    "Access-Control-Allow-Headers",
-    "Access-Control-Allow-Headers: Content-Type, Authorization"
-  ],
-};
+app.use(function (req, res, next) {
+  // 👇️ specify CORS headers to send 👇️
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header(
+    'Access-Control-Allow-Methods',
+    'POST, PUT, PATCH, GET, DELETE, OPTIONS',
+  );
+  res.header(
+    'Access-Control-Allow-Headers',
+    'Origin, X-Api-Key, X-Requested-With, Content-Type, Accept, Authorization',
+  );
+  next();
+});
 
-app.use(cors(corsOptions));
+
 app.use(express.urlencoded({ extended: true }));
 
 app.get("/", (req, res) => {
