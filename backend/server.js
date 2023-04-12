@@ -12,6 +12,24 @@ dotenv.config();
 connectDB();
 const app = express();
 
+
+app.use("/api/user", userRoutes);
+app.use("/api/chat", chatRoutes);
+app.use("/api/message", messageRoutes);
+
+
+
+app.use(express.urlencoded({ extended: true }));
+
+app.get("/", (req, res) => {
+  res.send("API Running!");
+});
+
+// Error Handling middlewares
+app.use(notFound);
+app.use(errorHandler);
+
+
 app.use(function (req, res, next) {
   // 👇️ specify CORS headers to send 👇️
   res.header('Access-Control-Allow-Origin', '*');
@@ -25,17 +43,6 @@ app.use(function (req, res, next) {
   );
   next();
 });
-
-
-app.use(express.urlencoded({ extended: true }));
-
-app.get("/", (req, res) => {
-  res.send("API Running!");
-});
-
-app.use("/api/user", userRoutes);
-app.use("/api/chat", chatRoutes);
-app.use("/api/message", messageRoutes);
 
 // --------------------------deployment------------------------------
 
@@ -55,9 +62,7 @@ app.use("/api/message", messageRoutes);
 
 // --------------------------deployment------------------------------
 
-// Error Handling middlewares
-app.use(notFound);
-app.use(errorHandler);
+
 
 const PORT = process.env.PORT || 5000;
 
